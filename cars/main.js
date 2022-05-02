@@ -285,7 +285,7 @@ function addVehicle() {
   const mesh = type == "car" ? Car() : Truck();
   scene.add(mesh);
 
-  const clockwise = Math.random() > 0.5;
+  const clockwise = Math.random() >= 0.5;
   const angle = clockwise ? Math.PI / 2 : -Math.PI / 2;
 
   const speed = getVehicleSpeed(type);
@@ -340,13 +340,13 @@ function hitDetection() {
     playerAngleInitial + playerAngleMoved,
     true,
     15
-  )
+  );
   const playerHitZone2 = getHitZonePosition(
     playerCar.position,
     playerAngleInitial + playerAngleMoved,
     true,
     -15
-  )
+  );
 
   const hit = otherVehicles.some((vehicle) => {
     if(vehicle.type == "car") {
@@ -372,11 +372,12 @@ function hitDetection() {
     }
     // insert other vehicle types here
   })
+  if (hit) renderer.setAnimationLoop(null);
 }
 
 function getDistance(coordinate1, coordinate2) {
   return Math.sqrt(
-    (coordinate2.x - coordinate1.x) ** 2 + (coordinate2.y - coordinate1) ** 2
+    (coordinate2.x - coordinate1.x) ** 2 + (coordinate2.y - coordinate1.y) ** 2
   )
 }
 
